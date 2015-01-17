@@ -1,0 +1,103 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="basemodule">
+
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Optimize mobile viewport -->
+
+    <title>Node/AngularJS/Express/Mogoose for MongoDB Test Assignment on Notes App</title>
+
+    <!-- SCROLLS -->
+
+    <!-- load bootstrap -->    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <style>
+    html {
+        overflow-y:scroll;
+    }
+    body {
+        padding-top:50px;
+    }
+    #note-list {
+        margin-bottom:30px;
+    }
+    #note-form {
+        margin-bottom:50px;
+    }    
+    </style>
+
+    <!-- load angularjs minified file -->
+    <script type="text/javascript" src="js/config/angular.min.js"></script>
+
+    <!-- load up controller -->
+    <script src="js/controllers/main.js"></script>
+
+    <!-- load note service -->
+    <script src="js/services/notes.js"></script>
+
+    <!-- load main application -->
+    <script src="js/core.js"></script>
+
+</head>
+<!-- SETTING THE CONTROLLER -->
+<body ng-controller="mainController">
+    <div class="container">
+
+        <!-- HEADER AND NOTES COUNT -->
+        <div class="jumbotron text-center">
+            <h1>Test Assignment Application</h1>
+            <p>No of Notes in Database :
+                <span class="label label-info">{{ todos.length }}</span>
+            </p>
+        </div>
+
+        <!-- NOTES LIST -->
+        <div id="note-list" class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <table class="table table-hover table-bordered">
+                    <th>
+                        Check To Delete
+                    </th>
+                    <th>
+                        Click To Update
+                    </th>
+                    <tr ng-repeat="todo in todos">
+                        <td>
+                            <input type="checkbox" ng-click="deleteTodo(todo._id)">
+                        </td>
+                        <td>
+                            <a ng-click="getDataForUpdate(todo._id)">{{todo.text}}</a>
+                        </td>
+                    </tr>
+                </table>
+
+                <p class="text-center" ng-show="loading">
+                    <span class="fa fa-spinner fa-spin fa-3x"></span>
+                </p>
+
+            </div>
+        </div>
+
+        <!-- FORM TO CREATE NOTES -->
+        <div id="note-form" class="row">
+            <div class="col-sm-5 col-sm-offset-4 text-center">
+                <form>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Type Inside To Create Notes......Then Click Add Button" ng-model="formData.text" required></textarea>
+                    </div>
+
+                    <!-- createNote() WILL CREATE NEW NOTES -->
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createNote()" ng-hide="showUpdate">Add</button>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="updateNotes()" ng-show="showUpdate">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>
